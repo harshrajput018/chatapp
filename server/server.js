@@ -17,7 +17,9 @@ app.use('/friends', friendsEndpoint);
 app.use('/getchats', getchats)
 app.use('/allusers', adduser)
 
-
+app.get('/',(req,res)=>{
+  res.json('Hello');
+})
 
 
 // Set up the port
