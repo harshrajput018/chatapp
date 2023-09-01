@@ -94,7 +94,7 @@ const ConversationList = ({ selectedConversation, onConversationSelect }) => {
   }, [searchQuery])
 
   const handleSendRequest = (conversationId) => {
-    fetch('http://localhost:9000/request',{
+    fetch('https://chatapp-roan-alpha.vercel.app/request',{
       method:'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -134,7 +134,7 @@ const ConversationList = ({ selectedConversation, onConversationSelect }) => {
     setIsMenuOpen(!isMenuOpen);
   };
   const getFriends = ()=>{
-    fetch('http://localhost:9000/friends/getfriends',{
+    fetch('https://chatapp-roan-alpha.vercel.app/friends/getfriends',{
         headers:{
             token: localStorage.getItem('token'),
         }
@@ -143,7 +143,7 @@ const ConversationList = ({ selectedConversation, onConversationSelect }) => {
 
   const getAllUsers = ()=>{
 
-    fetch('http://localhost:9000/allusers/allusers').then(res=>res.json()).then(res=>setall(res.allusers))
+    fetch('https://chatapp-roan-alpha.vercel.app/allusers/allusers').then(res=>res.json()).then(res=>setall(res.allusers))
 
   }
   useEffect(() => {

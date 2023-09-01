@@ -45,7 +45,7 @@ const Login = () => {
         e.preventDefault();
 
         if (activeForm === 'signup')
-            fetch('http://localhost:9000/allusers/register', {
+            fetch('https://chatapp-roan-alpha.vercel.app/allusers/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -54,7 +54,7 @@ const Login = () => {
             })
         else {
 
-            fetch('http://localhost:9000/allusers/login', {
+            fetch('https://chatapp-roan-alpha.vercel.app/allusers/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
