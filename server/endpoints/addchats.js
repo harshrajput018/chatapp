@@ -2,6 +2,7 @@ const express = require('express')
 const cors= require('cors')
 const mongoose= require('mongoose')
 const jwt = require('jsonwebtoken')
+const Msg = require('../models/msg')
 
 
 
@@ -14,14 +15,6 @@ const db=mongoose.connection;
 
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
-const msgSchema = new mongoose.Schema({
-    from: {type:mongoose.Schema.Types.ObjectId, ref: 'User', required: true},
-    to: {type:mongoose.Schema.Types.ObjectId, ref: 'User', required: true},
-    content: String,
-    timeStamp:{ type : Date, default: Date.now }
-  });
-
-const Msg = mongoose.model('Msg',msgSchema);  
 
 const app = express();
 

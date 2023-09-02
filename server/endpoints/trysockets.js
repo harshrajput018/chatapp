@@ -2,6 +2,7 @@ const express = require('express');
 const http = require('http');
 const jwt = require('jsonwebtoken')
 const mongoose= require('mongoose')
+const Msg = require('../models/msg')
 
 
 mongoose.connect('mongodb+srv://harshrajput18:Harsh1827@cluster0.efkiy6x.mongodb.net/?retryWrites=true&w=majority', {
@@ -13,20 +14,14 @@ const db=mongoose.connection;
 
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
-const msgSchema = new mongoose.Schema({
-    from: {type:mongoose.Schema.Types.ObjectId, ref: 'User', required: true},
-    to: {type:mongoose.Schema.Types.ObjectId, ref: 'User', required: true},
-    content: String,
-    timeStamp:{ type : Date, default: Date.now }
-  });
-
-const Msg = mongoose.model('Msg',msgSchema);  
+ 
 
 
 const cors = require('cors');
+const app = express();
 
 const Router = express.Router();
-const server = http.createServer(Router);
+const server = http.createServer(app);
 const io = require("socket.io")(server, {
     cors: {
       origin: "http://localhost:3000",
@@ -99,6 +94,11 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     console.log('A user disconnected:', socket.id);
   });
+});
+
+
+server.listen(7001, () => {
+  console.log(`Server is running on port 7001`);
 });
 
 
