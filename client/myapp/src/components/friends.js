@@ -14,7 +14,7 @@ const FriendsComponent = () => {
   ])
 
   const getFriends = ()=>{
-    fetch('https://chatapp-roan-alpha.vercel.app/friends/getfriends',{
+    fetch('http://localhost:9000/friends/getfriends',{
         headers:{
             token: localStorage.getItem('token'),
         }
@@ -27,7 +27,7 @@ const FriendsComponent = () => {
     // Add more friend requests here
   ])
   const getrequest = ()=>{
-    fetch('https://chatapp-roan-alpha.vercel.app/friends/getrequest',{
+    fetch('http://localhost:3000/friends/getrequest',{
         headers:{
             token: localStorage.getItem('token'),
         }
@@ -41,7 +41,7 @@ const FriendsComponent = () => {
   },[])
 
   function handleAccept(id){
-    fetch('https://chatapp-roan-alpha.vercel.app/friends/accept',{
+    fetch('http://localhost:9000/friends/accept',{
 
     headers:{
         token: localStorage.getItem('token'),
@@ -61,7 +61,7 @@ const FriendsComponent = () => {
   }
 
   function handleReject(id){
-    fetch('https://chatapp-roan-alpha.vercel.app/friends/reject',{
+    fetch('http://localhost:9000/friends/reject',{
 
     headers:{
         token: localStorage.getItem('token'),

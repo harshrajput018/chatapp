@@ -5,17 +5,15 @@ const app = express();
 const friendsEndpoint = require('./endpoints/friends');
 const getchats = require('./endpoints/getchats') // Adjust the path accordingly
 const adduser= require('./endpoints/adduser')
-const User = require('./models/user');
 
-app.use((req, res, next) => {
-  req.User = User; // Attach the User model to the request object
-  next();
-});
+
+
 
 // Use the endpoint router as middleware
 app.use('/friends', friendsEndpoint);
 app.use('/getchats', getchats)
 app.use('/allusers', adduser)
+
 
 app.get('/',(req,res)=>{
   res.json('Hello');

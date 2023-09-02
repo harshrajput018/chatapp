@@ -14,7 +14,7 @@ const ChatWindow = ({ conversationId }) => {
 
 useEffect(() => {
 
-    fetch('https://chatapp-roan-alpha.vercel.app/getchats',{
+    fetch('http://localhost:9000/getchats',{
         headers:{
             from: localStorage.getItem('token'),
             to: conversationId
@@ -33,7 +33,7 @@ useEffect(() => {
     useEffect(() => {
 
         console.log('ndfhhd')
-        const socket = io('http://localhost:7001',{
+        const socket = io('http://localhost:7001/',{
             auth: {
               token: localStorage.getItem('token'),
               // Replace with the actual token
