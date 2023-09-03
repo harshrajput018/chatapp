@@ -33,7 +33,7 @@ useEffect(() => {
     useEffect(() => {
 
         console.log('ndfhhd')
-        const socket = io('http://localhost:7001/',{
+        const socket = io('http://localhost:9000/',{
             auth: {
               token: localStorage.getItem('token'),
               // Replace with the actual token
@@ -63,7 +63,7 @@ useEffect(() => {
   const handleSendMessage = () => {
     if (newMessage.trim() === '') return;
 
-    const socket = io('http://localhost:7001',{
+    const socket = io('http://localhost:9000',{
             auth: {
               token: localStorage.getItem('token'),
               to: conversationId // Replace with the actual token

@@ -32,7 +32,7 @@ Router.post('/register', async (req, res) => {
 
   try {
     const prev= await User.find({username: username});
-    if(!prev){
+    if(prev.length==0){
     const newUser = await User.create({ username, email, password:  hashedPassword });
     res.status(201).json({ message: 'User registered successfully', user: newUser });
     }

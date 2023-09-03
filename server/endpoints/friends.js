@@ -37,7 +37,7 @@ friendsRouter.use(cors())
 
 friendsRouter.post('/request',async(req,res)=>{
 
-    console.log(req.body);
+    console.log('request',req.body);
 
     const from= jwt.verify(req.body.token, "THISISMYSECRETKEY");
 
@@ -64,43 +64,43 @@ friendsRouter.get('/getrequest',async(req,res)=>{
 
     const from= jwt.verify(token, "THISISMYSECRETKEY");
 
-    let allRequest = await Friend.find({user2:from.userid, request:true});
+    let allRequest = await Friend.find({$or :[{user2:from.userid, request:true},{user1:from.userid, request:true}]});
 
-
-
-    
     console.log('allrequest',allRequest)
-    
-        
-    let allRequest2 = await Friend.find({user1:from.userid,request: true});
-    console.log('allrequest2',allRequest2)
+      
+    // let allRequest2 = await Friend.find({user1:from.userid,request: true});
+    // console.log('allrequest2',allRequest2)
 
-    await Promise.all(allRequest2.map(async (elem) => {
-        allRequest.push({...elem._doc,flag:true});
-    }))
+    // await Promise.all(allRequest2.map(async (elem) => {
+    //     allRequest.push({...elem._doc,flag:true});
+    // }))
 
-    console.log(allRequest)
+    // console.log(allRequest)
 
     if(allRequest.length>0){
         const users=[];
         await Promise.all(allRequest.map(async (elem) => {
             if(elem.request===true){
-            if (elem.flag)
-            {
-                const user = await User.findOne({ _id: elem.user2 });
-                users.push(user);
-            }
-            else{
-            const user = await User.findOne({ _id: elem.user1 });
+            
+            console.log(elem.user1);
+                
+           
+            const user = await User.findOne({$or:[{ _id: elem.user1} , {_id: elem.user2}]});
+            if(from.userid!=user._id)
             users.push(user);
-            }
+            
             }
         }));
 
-
-        res.json({users})
+        res.json({users});
     }
-    else res.json({users:[]});
+
+    else
+    res.json({users:[]});
+    //     res.json({users})
+    // }
+    // else 
+    
 })
 
 friendsRouter.get('/getfriends',async(req,res)=>{
@@ -151,9 +151,24 @@ friendsRouter.get('/accept',async(req,res)=>{
 
     const {token} = req.headers;
 
-    const from= jwt.verify(token, "THISISMYSECRETKEY");
+    const from= jwt.verify(token, "THISISMYSECRETKEY")
 
+    const mid=await Friend.find({user2:from.userid,user1:req.headers.id, request:true});
+
+    if(mid.length==0)
+    {
+        mid = await Friend.find({user1:from.userid,user2:req.headers.id, request:true});
+
+        if(mid.length>0)
+        {
+            const allRequest = await Friend.updateOne({user1:from.userid,user2:req.headers.id, request:true},{user1:from.userid,user2:req.headers.id, request:false,areFriends: true});
+        }
+    }
+    else {
+    
     const allRequest = await Friend.updateOne({user2:from.userid,user1:req.headers.id, request:true},{user2:from.userid,user1:req.headers.id, request:false,areFriends: true});
+
+    }
 
     res.json({status:'successful'})
 

@@ -27,11 +27,11 @@ const FriendsComponent = () => {
     // Add more friend requests here
   ])
   const getrequest = ()=>{
-    fetch('http://localhost:3000/friends/getrequest',{
+    fetch('http://localhost:9000/friends/getrequest',{
         headers:{
             token: localStorage.getItem('token'),
         }
-    }).then((res)=>res.json()).then(res=>setFriendRequestsData(res.users))
+    }).then((res)=>res.json()).then(res=>{console.log(res);setFriendRequestsData(res.users)})
   }
   useEffect(()=>{
 
@@ -49,6 +49,7 @@ const FriendsComponent = () => {
     }
 
     }).then(res=>res.json()).then(res=>{
+      
         if(res.status=='successful')
         {
             getrequest();

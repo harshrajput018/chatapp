@@ -94,7 +94,7 @@ const ConversationList = ({ selectedConversation, onConversationSelect }) => {
   }, [searchQuery])
 
   const handleSendRequest = (conversationId) => {
-    fetch('http://localhost:9000/request',{
+    fetch('http://localhost:9000/friends/request',{
       method:'POST',
       headers: {
         'Content-Type': 'application/json',
