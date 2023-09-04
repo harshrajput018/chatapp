@@ -18,15 +18,14 @@ app.use('/friends', friendsEndpoint);
 app.use('/getchats', getchats);
 app.use('/allusers', adduser);
 
-if(process.env.NODE_ENV === 'production')
-{
+
     const path = require ('path')
 
     app.get('/',(req,res)=>{
         app.use(express.static(path.resolve(__dirname,'myapp','build')))
         res.sendFile(path.resolve(__dirname,'myapp','build','index.html'))
     })
-}
+
 
 app.get('/', (req, res) => {
   res.json('Hello');
